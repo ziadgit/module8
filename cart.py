@@ -113,6 +113,38 @@ def get_item(item, count):
         except ValueError:
             print("Please enter a valid quantity as an integer.")
 
+def print_menu():
+    choice = ""
+    while choice != "q":
+        print("MENU")
+        print("a - Add item to cart")
+        print("r - Remove item from cart")
+        print("c - Change item quantity")
+        print("i - Output items' descriptions")
+        print("o - Output shopping cart")
+        print("q - Quit")
+        choice = str(input("choose an option: "))
+        if choice == "a":
+            new_item = ItemToPurchase()
+            new_item.get_item()
+            my_cart.add_item(new_item)
+        elif choice == "r":
+            item_name = str(input("Name of item to remove: "))
+            my_cart.remove_item(item_name)
+        elif choice == "c":
+            item_name = str(input("Name of item to modify: "))
+            my_cart.modify_item(item_name)
+        elif choice == "i":
+            print("OUTPUT ITEMS' DESCRIPTIONS")
+            my_cart.print_descriptions()
+        elif choice == "o":
+            print("OUTPUT SHOPPING CART")
+            my_cart.print_total()
+        elif choice == "q":
+            print("Quitting the menu.")
+        else:
+            print("Invalid choice. Please choose a valid option.")
+
 item1 = ItemToPurchase()
 item2 = ItemToPurchase()
 
@@ -123,3 +155,7 @@ item1.print_item_cost()
 item2.print_item_cost()
 
 print("Total: $" + str(item1.item_quantity*item1.item_price+item2.item_quantity*item2.item_price))
+
+
+my_cart = ShoppingCart()
+print_menu()
