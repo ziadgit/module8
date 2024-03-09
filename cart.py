@@ -3,9 +3,48 @@ class ItemToPurchase:
         self.item_name = "none"
         self.item_price = 0
         self.item_quantity = 0
+        self.item_description = "none"
 
     def print_item_cost(self):
         print(self.item_name, str(self.item_quantity) + " @ $" + str(self.item_price) + " = $" + str(self.item_price*self.item_quantity))
+
+    def get_item(self):
+        while True:
+            item_name = input("Enter the item name: ")
+            if item_name.strip():
+                self.item_name = item_name
+                break
+            else:
+                print("Item name can't be blank. Please try again.")
+
+        while True:
+            item_description = input("Enter the item description: ")
+            if item_description.strip():
+                self.item_description = item_description
+                break
+            else:
+                print("Item description can't be blank. Please try again.")
+        while True:
+            try:
+                item_price = float(input("Enter the item price: "))
+                if item_price >= 0:
+                    self.item_price = item_price
+                    break
+                else:
+                    print("Item price can't be negative. Please re-enter.")
+            except ValueError:
+                print("Please enter a valid price as an float.")
+
+        while True:
+            try:
+                item_quantity = int(input("Enter the item quantity: "))
+                if item_quantity >= 0:
+                    self.item_quantity = item_quantity
+                    break
+                else:
+                    print("Item quantity can't be negative. Please re-enter.")
+            except ValueError:
+                print("Please enter a valid quantity as an integer.")
 
 class ShoppingCart:
     def __init__(self, customer_name="none", current_date="January 1, 2020"):
@@ -81,38 +120,6 @@ class ShoppingCart:
                 print(self.cart_items[i].item_name + ": ", self.cart_items[i].item_description)
 
 
-def get_item(item, count):
-    print("Item", count)
-    while True:
-        item_name = input("Enter the item name: ")
-        if item_name.strip():
-            item.item_name = item_name
-            break
-        else:
-            print("Item name can't be blank. Please try again.")
-
-    while True:
-        try:
-            item_price = float(input("Enter the item price: "))
-            if item_price >= 0:
-                item.item_price = item_price
-                break
-            else:
-                print("Item price can't be negative. Please re-enter.")
-        except ValueError:
-            print("Please enter a valid price as an integer.")
-
-    while True:
-        try:
-            item_quantity = int(input("Enter the item quantity: "))
-            if item_quantity >= 0:
-                item.item_quantity = item_quantity
-                break
-            else:
-                print("Item quantity can't be negative. Please re-enter.")
-        except ValueError:
-            print("Please enter a valid quantity as an integer.")
-
 def print_menu():
     choice = ""
     while choice != "q":
@@ -145,17 +152,25 @@ def print_menu():
         else:
             print("Invalid choice. Please choose a valid option.")
 
+
 item1 = ItemToPurchase()
 item2 = ItemToPurchase()
 
-get_item(item1,1)
-get_item(item2,2)
+item1.get_item()
+item2.get_item()
 
 item1.print_item_cost()
 item2.print_item_cost()
 
 print("Total: $" + str(item1.item_quantity*item1.item_price+item2.item_quantity*item2.item_price))
 
+"""
 
-my_cart = ShoppingCart()
+customer_name = input("Enter customer's name: ")
+todays_date = input("Enter today's date: ")
+
+my_cart = ShoppingCart(customer_name, todays_date)
+
 print_menu()
+"""
+
