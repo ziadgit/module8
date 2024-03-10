@@ -86,6 +86,7 @@ class ShoppingCart:
                     if ans == "p":
                         self.cart_items[i].item_price =float(input("Enter price: "))
                     if ans == "q":
+                        print("CHANGE ITEM QUANTITY")
                         self.cart_items[i].item_quantity =int(input("Enter quantity: "))
                     if ans == "n":
                         print("item not modified")
@@ -143,8 +144,10 @@ def print_menu():
         if choice == "a":
             new_item = ItemToPurchase()
             new_item.get_item()
+            print("ADD ITEM TO CART")
             my_cart.add_item(new_item)
         elif choice == "r":
+            print("REMOVE ITEM FROM CART")
             item_name = str(input("Name of item to remove: "))
             my_cart.remove_item(item_name)
         elif choice == "c":
