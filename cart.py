@@ -8,6 +8,19 @@ class ItemToPurchase:
     def print_item_cost(self):
         print(self.item_name, str(self.item_quantity) + " @ $" + str(self.item_price) + " = $" + str(self.item_price*self.item_quantity))
 
+    def quick_item(self):
+        while True:
+            item_name = input("Enter the item name: ")
+            if item_name.strip():
+                self.item_name = item_name
+                self.item_description = "None"
+                self.item_quantity = 0
+                self.item_price = 0
+                break
+            else:
+                print("Item name can't be blank. Please try again.")
+        
+
     def get_item(self):
         while True:
             item_name = input("Enter the item name: ")
@@ -75,26 +88,31 @@ class ShoppingCart:
                     print(self.cart_items[i].item_description)
                     print(self.cart_items[i].item_price)
                     print(self.cart_items[i].item_quantity)
-                    print("Modify Menu:")
-                    print("To modify description, enter d: ")
-                    print("To modify price, enter p: ")
-                    print("To modify quantity, enter q: ")
-                    print("To exit without modifying, enter n: ")
-                    ans = input("Enter choice: ")
-                    if ans == "d":
+                    if self.cart_items[i].item_description == "None" and self.cart_items[i].item_price == 0 and self.cart_items[i].item_quantity == 0:
                         self.cart_items[i].item_description = str(input("Enter description: "))
-                    if ans == "p":
                         self.cart_items[i].item_price =float(input("Enter price: "))
-                    if ans == "q":
-                        print("CHANGE ITEM QUANTITY")
                         self.cart_items[i].item_quantity =int(input("Enter quantity: "))
-                    if ans == "n":
-                        print("item not modified")
+                    else:
+                        print("Modify Menu:")
+                        print("To modify description, enter d: ")
+                        print("To modify price, enter p: ")
+                        print("To modify quantity, enter q: ")
+                        print("To exit without modifying, enter n: ")
+                        ans = input("Enter choice: ")
+                        if ans == "d":
+                            self.cart_items[i].item_description = str(input("Enter description: "))
+                        if ans == "p":
+                            self.cart_items[i].item_price =float(input("Enter price: "))
+                        if ans == "q":
+                            print("CHANGE ITEM QUANTITY")
+                            self.cart_items[i].item_quantity =int(input("Enter quantity: "))
+                        if ans == "n":
+                            print("item not modified")
+                            break
+                        if ans != "d" or ans != "p" or ans !="q" or ans != "n":
+                            print("invalid choice, item not modified, returning to main menu")
+                            break
                         break
-                    if ans != "d" or ans != "p" or ans !="q" or ans != "n":
-                        print("invalid choice, item not modified, returning to main menu")
-                        break
-                    break
             else:
                 print("Item not found in cart.")
             
@@ -143,7 +161,7 @@ def print_menu():
         choice = str(input("choose an option: "))
         if choice == "a":
             new_item = ItemToPurchase()
-            new_item.get_item()
+            new_item.quick_item()
             print("ADD ITEM TO CART")
             my_cart.add_item(new_item)
         elif choice == "r":
