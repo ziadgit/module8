@@ -105,7 +105,7 @@ class ShoppingCart:
             print("SHOPPING CART IS EMPTY")
         else:
             cost = 0
-            print("John Doe's Shopping Cart - February 1, 2020")
+            print("John Doe's Shopping Cart - ", current_date)
             self.get_num_items_in_cart()
             for i in range(len(self.cart_items)):
                 print(self.cart_items[i].item_name, self.cart_items[i].item_quantity, "@ $", self.cart_items[i].item_price, "=", round(self.cart_items[i].item_quantity * self.cart_items[i].item_price,2) )
