@@ -75,15 +75,24 @@ class ShoppingCart:
                     print(self.cart_items[i].item_description)
                     print(self.cart_items[i].item_price)
                     print(self.cart_items[i].item_quantity)
-                    ans = input("Update description y/n: ")
-                    if ans == "y":
+                    print("Modify Menu:")
+                    print("To modify description, enter d: ")
+                    print("To modify price, enter p: ")
+                    print("To modify quantity, enter q: ")
+                    print("To exit without modifying, enter n: ")
+                    ans = input("Enter choice: ")
+                    if ans == "d":
                         self.cart_items[i].item_description = str(input("Enter description: "))
-                    ans = input("Update price y/n: ")
-                    if ans == "y":
+                    if ans == "p":
                         self.cart_items[i].item_price =float(input("Enter price: "))
-                    ans = input("Update quantity y/n: ")
-                    if ans == "y":
+                    if ans == "q":
                         self.cart_items[i].item_quantity =int(input("Enter quantity: "))
+                    if ans == "n":
+                        print("item not modified")
+                        break
+                    if ans != "d" or ans != "p" or ans !="q" or ans != "n":
+                        print("invalid choice, item not modified, returning to main menu")
+                        break
                     break
             else:
                 print("Item not found in cart.")
@@ -101,11 +110,11 @@ class ShoppingCart:
         print("Total price of items is $", cost)
     
     def print_total(self):
-        if len(self.items)==0:
+        if len(self.cart_items)==0:
             print("SHOPPING CART IS EMPTY")
         else:
             cost = 0
-            print("John Doe's Shopping Cart - ", current_date)
+            print("John Doe's Shopping Cart - ", self.current_date)
             self.get_num_items_in_cart()
             for i in range(len(self.cart_items)):
                 print(self.cart_items[i].item_name, self.cart_items[i].item_quantity, "@ $", self.cart_items[i].item_price, "=", round(self.cart_items[i].item_quantity * self.cart_items[i].item_price,2) )
@@ -126,7 +135,7 @@ def print_menu():
         print("MENU")
         print("a - Add item to cart")
         print("r - Remove item from cart")
-        print("c - Change item quantity")
+        print("c - Modify item")
         print("i - Output items' descriptions")
         print("o - Output shopping cart")
         print("q - Quit")
@@ -152,19 +161,18 @@ def print_menu():
         else:
             print("Invalid choice. Please choose a valid option.")
 
+ans = input("do part 1?: ")
+if ans == "y":
+    item1 = ItemToPurchase()
+    item2 = ItemToPurchase()
 
-item1 = ItemToPurchase()
-item2 = ItemToPurchase()
+    item1.get_item()
+    item2.get_item()
 
-item1.get_item()
-item2.get_item()
+    item1.print_item_cost()
+    item2.print_item_cost()
+    print("Total: $" + str(item1.item_quantity*item1.item_price+item2.item_quantity*item2.item_price))
 
-item1.print_item_cost()
-item2.print_item_cost()
-
-print("Total: $" + str(item1.item_quantity*item1.item_price+item2.item_quantity*item2.item_price))
-
-"""
 
 customer_name = input("Enter customer's name: ")
 todays_date = input("Enter today's date: ")
@@ -172,5 +180,3 @@ todays_date = input("Enter today's date: ")
 my_cart = ShoppingCart(customer_name, todays_date)
 
 print_menu()
-"""
-
