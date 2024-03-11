@@ -71,7 +71,7 @@ class ShoppingCart:
     def remove_item(self, ItemToRemove):
         count = 0
         try:
-            for i in range(0,len(self.items)):
+            for i in range(0,len(self.cart_items)):
                 if self.cart_items[i].item_name == ItemToRemove:
                     self.cart_items.pop(i)
                     count += 1
@@ -82,16 +82,19 @@ class ShoppingCart:
             print("Item not found.")
 
     def modify_item(self, ItemToModify):
+        count = 0
         for i in range(len(self.cart_items)):
             if self.cart_items[i].item_name == ItemToModify:
+                    count += 1
                     print("Item current details:")
-                    print(self.cart_items[i].item_description)
-                    print(self.cart_items[i].item_price)
-                    print(self.cart_items[i].item_quantity)
+                    print("Description ", self.cart_items[i].item_description)
+                    print("Price ", self.cart_items[i].item_price)
+                    print("Quantity ", self.cart_items[i].item_quantity)
                     if self.cart_items[i].item_description == "None" and self.cart_items[i].item_price == 0 and self.cart_items[i].item_quantity == 0:
                         self.cart_items[i].item_description = str(input("Enter description: "))
                         self.cart_items[i].item_price =float(input("Enter price: "))
                         self.cart_items[i].item_quantity =int(input("Enter quantity: "))
+                        break
                     else:
                         print("Modify Menu:")
                         print("To modify description, enter d: ")
@@ -114,7 +117,8 @@ class ShoppingCart:
                             break
                         break
             else:
-                print("Item not found in cart.")
+                if count== 0:
+                    print("Item not found in cart.")
             
     def get_num_items_in_cart(self):
         count = 0
@@ -133,7 +137,7 @@ class ShoppingCart:
             print("SHOPPING CART IS EMPTY")
         else:
             cost = 0
-            print("John Doe's Shopping Cart - ", self.current_date)
+            print(self.customer_name + "'s Shopping Cart - ", self.current_date)
             self.get_num_items_in_cart()
             for i in range(len(self.cart_items)):
                 print(self.cart_items[i].item_name, self.cart_items[i].item_quantity, "@ $", self.cart_items[i].item_price, "=", round(self.cart_items[i].item_quantity * self.cart_items[i].item_price,2) )
@@ -142,7 +146,7 @@ class ShoppingCart:
 
     def print_descriptions(self):
         if len(self.cart_items) > 0:
-            print("John Doe's Shopping Cart - February 1, 2020")
+            print(self.customer_name, "-", self.current_date)
             print("Item Descriptions")
             for i in range(len(self.cart_items)):
                 print(self.cart_items[i].item_name + ": ", self.cart_items[i].item_description)
@@ -192,7 +196,7 @@ if ans == "y":
 
     item1.print_item_cost()
     item2.print_item_cost()
-    print("Total: $" + str(item1.item_quantity*item1.item_price+item2.item_quantity*item2.item_price))
+    print("Total: $" + str(round(item1.item_quantity*item1.item_price+item2.item_quantity*item2.item_price, 2)))
 
 
 customer_name = input("Enter customer's name: ")
